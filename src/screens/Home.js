@@ -1,19 +1,18 @@
 import React, { memo } from 'react';
-import { View, FlatList, Text, TouchableOpacity } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import { addItem, removeItem } from '../redux/actions/FoodDataActions';
 import { FoodData } from '../helpers/foodData';
 import { Item } from '../components/FoodItem/FoodItem';
 import { stylesHome } from '../components/FoodItem/styles';
+import { Button } from '../components/Button';
 
 const Home = memo((props) => {
     const { data, navigation } = props;
     const checkActive = data.length > 0 ? stylesHome.activeTextButton : stylesHome.disableTextButton;
     const checkOpacity = data.length > 0 ? 0.2 : 1.0;
     const onPress = data.length > 0 ? () => navigation.navigate('Success') : null;
-
-    console.log(data, 'data');
 
     const handleItem = (id) => {
         if (!data.includes(id)) {
@@ -37,11 +36,9 @@ const Home = memo((props) => {
             />
 
             <LinearGradient colors={[ 'rgba(252,250,250,0.2)', 'rgba(252,250,250,0.5)', 'rgba(252,250,250,1)' ]}
-                            style={stylesHome.buttonContainer}
+                 style={stylesHome.buttonContainer}
             >
-                <TouchableOpacity activeOpacity={checkOpacity} onPress={onPress} style={stylesHome.button}>
-                    <Text style={checkActive}>Далее</Text>
-                </TouchableOpacity>
+                <Button checkOpacity={checkOpacity} onPress={onPress} checkActive={checkActive}>Далее</Button>
             </LinearGradient>
         </View>
     )
